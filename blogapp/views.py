@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User
 from django.db import models
@@ -28,6 +29,12 @@ import datetime
 import jwt
 from django.conf import settings
 from rest_framework import serializers
+
+from django import forms
+
+class LoginForm(forms.Form):
+    email = forms.CharField(label="email", max_length=100)
+    password = forms.CharField(label="password", max_length=100)
 
 def generate_access_token(user):
 
@@ -63,33 +70,40 @@ class UserSerializer(serializers.ModelSerializer):
 
 def LginView(request):
     try:
-        username = request.data["username"]
-        password =request.data["password"]
-
-        print(password)
-        user = Account.objects.filter(username=username).first()
-        if(user is None):
-            return Response('user not found')
-        if (not user.check_password(password)):
-            return Response('wrong password')
-
-        serialized_user = UserSerializer(user).data
+        print(request.method)
+        if request.method == "POST":
+            print(request.POST.get('email'))
+            email = request.POST.get('email')
+            password =request.POST.get('password')
 
 
-        access_token = generate_access_token(user)
-        refresh_token = generate_refresh_token(user)
+            print("dsd")
+            user = Account.objects.filter(email=email).first()
+            print(user)
+            if(user is None):
+                print("hi")
+                return render(request,'login.html',{"error":"user not found"})
+
+            else:
+                if (not user.check_password(password)):
+                    return render(request,'user not found',{"error":"password not correct"})
+
+                serialized_user = UserSerializer(user).data
+
+                access_token = generate_access_token(user)
+                refresh_token = generate_refresh_token(user)
     
-        user = {
-            'access_token': access_token,
-            'refresh_token':refresh_token,
-            'user': serialized_user,
-        }
+                user = {
+                    'access_token': access_token,
+                    'refresh_token':refresh_token,
+                    'user': serialized_user,
+                }
 
-        data = {
-            "user": user,
-        }
+                data = {
+                    "user": user,
+                }
 
-        return render(request,'login.html',data)
+            return render(request,'login.html',data)
     
     except:
         print("error")

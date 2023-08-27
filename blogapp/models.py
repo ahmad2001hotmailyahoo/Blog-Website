@@ -11,9 +11,10 @@ from django.contrib.auth import get_user_model
 class AccountManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, username,email ,password,first_name,last_name, **extra_fields):
-        
-        values = [self, username,email ,password,first_name,last_name]
+    def _create_user(self,email ,password, **extra_fields):
+        # ,first_name,last_name,username
+        # ,first_name,last_nameusername
+        values = [self ,email ,password]
         field_value_map = dict(zip(self.model.REQUIRED_FIELDS, values))
         for field_name, value in field_value_map.items():
             if not value:
@@ -21,11 +22,11 @@ class AccountManager(BaseUserManager):
 
         email = self.normalize_email(email)
         user = self.model(
-            username=username,
+            # username=username,
             email=email,
             password=password,
-            first_name=first_name,
-            last_name=last_name,
+            # first_name=first_name,
+            # last_name=last_name,
             **extra_fields
         )
 
@@ -33,10 +34,12 @@ class AccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, username,email ,password,first_name,last_name, **extra_fields):
+    def create_user(self, email ,password, **extra_fields):
+        # username,,first_name,last_name
+        # username,first_name,last_name,
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(username,email ,password,first_name,last_name, **extra_fields)
+        return self._create_user(email ,password, **extra_fields)
 
     def create_superuser(self, email ,password, **extra_fields):
         extra_fields.setdefault('is_staff', True)

@@ -4,17 +4,20 @@
 <div class="form_header">
     <span>Login</span>
 </div>
-<div class="inputController">
-    <input type="email" name="email" placeholder="email">
+{{data.user}}
+<div class="inputController" >
+    <input type="email" name="email" id="email" value="" placeholder="email">
 </div>
 <div class="inputController">
-    <input type="password" name="password" placeholder="password">
+    <input type="password" name="password" id="password" value=""  placeholder="password">
 </div>
 <div class="inputController">
-    <button type="submit">Login</button>
+    <input type="submit" value="Login"/>
 </div>
 <div class="inputController a">
     <a href='#'>Don;t have an  account create one</a>
 </div>
+{{error}}
+{{user}}
 {% endblock content %}
 
