@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form_header r">
+    <span>Register</span>
+</div>
+<div class="inputController name">
+    <input type="text" name="firstname" placeholder="First Name">
+    <input type="text" name="lastname" placeholder="Last Name">
+</div>
+<div class="inputController">
+    <input type="Email" name="email" placeholder="email">
+</div>
+<div class="inputController">
+    <input type="Password" name="password" placeholder="password">
+</div>
+<div class="inputController">
+    <button type="submit">Register</button>
+</div>
+<div class="inputController a">
+    <a href='#'>Login</a>
+</div>
+{% endblock content %}

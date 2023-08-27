@@ -1,0 +1,119 @@
+<html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&family=Marcellus&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Serif+4:opsz,wght@8..60,300&family=Tajawal:wght@200&display=swap');
+
+
+    body{
+        margin:0;
+        font-family: 'Marcellus', serif;
+    }
+    .bg_form{
+        background:white;
+        height:100%;
+        width:100%;
+        display:flex;
+        background:rgb(230,230,230);
+    }
+    input{
+        background:white;
+        border:none;
+    }
+    .bg_form .image img{
+        width:100%;
+        height:100%;
+        opacity:0.8;
+    }
+    .form{
+        width:50%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+    }
+    .form_feilds{
+        width:50%;
+        background:rgb(250,250,250);
+        box-shadow:0 0 2px 2px rgb(224,224,224);
+        padding:4%;
+        text-align:center
+    }
+    .inputController{
+        margin-bottom:8%;
+    }
+    input,button{
+        width:100%;
+        padding:3%;
+        font-family: 'Marcellus', serif;
+    }
+    input{
+        background:rgb(252,252,252);
+        box-shadow:0 0 5px 3px rgb(224,224,224);
+    }
+    .a{
+        padding:3%;
+        font-size:0.8rem;
+    }
+    button,.a{
+        background:#4BB543;
+        color:white;
+        border:none;
+        text-align:center;
+    }
+    a{
+        color:white;
+        text-decoration:none;
+    }
+    .form_header{
+        background:#4BB543;
+        position:relative;
+        text-align:center;
+        padding:4%;
+        left:auto;
+        align-self:center;
+        top:-20%;
+    }
+    .form_header span{
+        font-size:1.4rem;
+        color:white;
+        display:block;
+    }
+    .name input{
+        display:inline-block;
+        width:49%;
+    }
+    .r{
+        top:-15%;
+    }
+</style>
+<body>
+<div class="bg_form">
+    <div class="image">
+        <img src = "https://techstory.in/wp-content/uploads/2022/11/Blogging.jpg" width="50px" height="50px">
+    </div>
+    <form class="form">
+    {% csrf_token %}
+    <div class="form_feilds">
+        {% block content %}
+        
+        {% endblock content %}
+    </div>
+    </form>
+</div>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("myForm");
+        
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();  // Prevent the default form submission
+            
+            // Perform any actions you need before allowing the form to submit
+            // For example, validation or confirmation
+            
+            // If you want to submit the form programmatically later, use:
+            // form.submit();
+        });
+    });
+    </script>
